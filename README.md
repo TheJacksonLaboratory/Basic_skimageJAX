@@ -1,9 +1,8 @@
-# PythonImagingBasic
-code and data for 'Basic Image Analysis with Python' class
+# Basic image analysis with scikit-image
 
-This workshop covers the basics of image analysis using Python. It is geared toward those with low-to-moderate programming experience, but beginners should be able to follow along with the provided tutorial code. Students will learn how to interactively explore their image data with a Jupyter Notebook. The workshop will cover image file IO, basic processing such as rescaling and filtering, and basic image segmentation.
+This workshop covers the basics of image analysis using scikit-image (`skimage`), a popular image analysis toolkit written in Python. It is geared toward those with low-to-moderate programming experience, but beginners should be able to follow along with the provided tutorial code. This material will cover image file IO, basic processing such as rescaling and filtering, and basic image segmentation.
 
-Lesson material is found in the `lessons/` folder. Please review `0-Background_and_Setup.ipynb` to set up your environment to follow the lessons.
+Lesson material is found in the `lessons/` folder. Please review `0-Background_and_Setup.md` to set up your environment to follow the lessons.
 
 You might also find the following links useful:
 
