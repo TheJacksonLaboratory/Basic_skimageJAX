@@ -9,37 +9,33 @@ To demonstrate the power of morphological operations in image processing, let's 
 ```python
 >>> from skimage import io
 >>> from skimage.color import rgb2gray
->>> from skimage.util import invert
+>>> from skimage.util import invert, img_as_ubyte
 >>> 
 >>> blocks = io.imread('data/abc_blocks.png')
 >>> blocks = rgb2gray(blocks)
 >>> blocks = invert(blocks)
 >>> blocks_thresh = blocks > 0.7
->>> io.imshow(blocks_thresh);
+>>> io.imshow(img_as_ubyte(blocks_thresh));
 ```
 
 ![3-Figure1](./output_files/3_Figure_1.png "ABC Blocks Binary")
 
-Here we thresholded simply by evaluating `blocks > 0.7`. This actually created a boolean array:
+Here we thresholded simply by evaluating `blocks > 0.7`. This created a boolean array, which we then converted back to `uint8` for display purposes:
 
 ```python
+>>> blocks_thresh = blocks > 0.7
 >>> blocks_thresh.dtype
 dtype('bool')
->>> print(blocks_thresh[88:92, 200:204])
-[[ True  True  True  True]
- [False  True  True  True]
- [False False False False]
- [False False False False]]
-```
-
-Our plotting function is smart enough to know what to do with `bool` arrays, so `True` is a white pixel and `False` is a black pixel when displayed. `True` and `False` are also mathematically equivalent to `1` and `0`, respectively:
-
-```python
->>> blocks_thresh[88:92, 200:204] + 1
-array([[2, 2, 2, 2],
-       [1, 2, 2, 2],
-       [1, 1, 1, 1],
-       [1, 1, 1, 1]])
+>>> blocks_thresh[88:92, 200:204]
+array([[ True,  True,  True,  True],
+       [False,  True,  True,  True],
+       [False, False, False, False],
+       [False, False, False, False]])
+>>> img_as_ubyte(blocks_thresh[88:92, 200:204])
+array([[255, 255, 255, 255],
+       [  0, 255, 255, 255],
+       [  0,   0,   0,   0],
+       [  0,   0,   0,   0]], dtype=uint8)
 ```
 
 `scikit-image` has a number of methods for setting threshold values automatically for an image, which is important because manually adjusting that value would quickly become tedious at scale. You can test out all automatic thresholding methods with `filters.try_all_threshold`:
@@ -64,7 +60,7 @@ Depending on what exactly you are trying to separate, one, several, or none of t
 ```python
 >>> nib_thresh_val = filters.threshold_niblack(blocks, 41, .001)
 >>> blocks_nib = blocks > nib_thresh_val
->>> io.imshow(blocks_nib)
+>>> io.imshow(img_as_ubyte(blocks_nib))
 ```
 
 ![3-Figure3](./output_files/3_Figure_3.png "ABC Blocks local threshold")
@@ -77,7 +73,7 @@ The Li method for automatic thresholding that we tried above found a lot of true
 >>> li_thresh_val = filters.threshold_li(blocks)
 >>> blocks_li = blocks > li_thresh_val
 >>> letters = blocks_li & blocks_nib
->>> io.imshow(letters);
+>>> io.imshow(img_as_ubyte(letters));
 ```
 
 ![3-Figure4](./output_files/3_Figure_4.png "ABC Blocks combined threshold")
@@ -88,7 +84,7 @@ This is improved. Nonetheless, there are still some artifacts present, and there
 
 In this lesson, we will cover the basic operations of mathematical morphology: dilation, erosion, opening and closing. These operations function very similarly to the rank filters we covered in the previous lesson. So every operation depends on the definition of a structuring element (`selem`). In the next example image, our structuring element will be:
 
-```
+```code
 0 1 0
 1 1 1
 0 1 0
@@ -158,7 +154,7 @@ Here is the effect of dilation with this `selem` on `letters`:
 
 ```python
 >>> letters_dil = morphology.dilation(letters, selem)
->>> io.imshow(letters_dil);
+>>> io.imshow(img_as_ubyte(letters_dil));
 ```
 
 ![3-Figure5](./output_files/3_Figure_5.png "ABC Blocks Dilation")
@@ -169,7 +165,7 @@ Applying erosion to the original image produces the opposite effect:
 
 ```python
 >>> letters_ero = morphology.erosion(letters, selem)
->>> io.imshow(letters_ero);
+>>> io.imshow(img_as_ubyte(letters_ero));
 ```
 
 ![3-Figure6](./output_files/3_Figure_6.png "ABC Blocks Erosion")
@@ -180,7 +176,7 @@ Closing:
 
 ```python
 >>> letters_clo = morphology.closing(letters, selem)
->>> io.imshow(letters_clo);
+>>> io.imshow(img_as_ubyte(letters_clo));
 ```
 
 ![3-Figure7](./output_files/3_Figure_7.png "ABC Blocks Closing")
@@ -191,7 +187,7 @@ Opening gets rid of small/thin foreground objects:
 
 ```python
 >>> letters_op = morphology.opening(letters, selem)
->>> io.imshow(letters_op);
+>>> io.imshow(img_as_ubyte(letters_op));
 ```
 
 ![3-Figure8](./output_files/3_Figure_8.png "ABC Blocks Opening")
@@ -204,7 +200,7 @@ That looks much better! Let's stop there (feel free to try some different struct
 
 ```python
 >>> letters_skeleton =  morphology.skeletonize(letters_op)
->>> io.imshow(letters_skeleton);
+>>> io.imshow(img_as_ubyte(letters_skeleton));
 ```
 
 ![3-Figure9](./output_files/3_Figure_9.png "ABC Blocks Skeleton")
@@ -212,7 +208,7 @@ That looks much better! Let's stop there (feel free to try some different struct
 **WARNING**: When you have single-pixel-width foreground objects in your image, they won't look correct in display, because of [aliasing](https://en.wikipedia.org/wiki/Aliasing). Watch what happens when we zoom in on the A block, for example:
 
 ```python
->>> io.imshow(letters_skeleton[350:600, 50:340])
+>>> io.imshow(img_as_ubyte(letters_skeleton[350:600, 50:340]));
 ```
 
 ![3-Figure10](./output_files/3_Figure_10.png "A Block Skeleton")
@@ -323,7 +319,7 @@ You can find the area of each object in pixels:
 ...     print(f'object id: {obj} \t size: {size}')
 ```
 
-```
+```code
 object id: 0 	 size: 334590
 object id: 1 	 size: 21722
 object id: 2 	 size: 5
@@ -340,6 +336,13 @@ object id: 12 	 size: 5
 object id: 13 	 size: 5
 object id: 14 	 size: 5
 object id: 15 	 size: 1732
+object id: 16 	 size: 152
+object id: 17 	 size: 5393
+object id: 18 	 size: 12070
+object id: 19 	 size: 31
+object id: 20 	 size: 1400
+object id: 21 	 size: 4317
+object id: 22 	 size: 20
 ```
 
 But can also use `skimage.measure.regionprops` to more simply calculate a large number of [parameters](https://scikit-image.org/docs/stable/api/skimage.measure.html#regionprops) for each object:
@@ -369,7 +372,7 @@ But can also use `skimage.measure.regionprops` to more simply calculate a large 
 
 Now write something to automatically count the number of coins and output their size. This does not have to be perfect! You can do a decent job using only what you have learned in this workshop.
 
-## Finally...
+## Finally
 
 If you complete the coin exercise without too much trouble, try it again with data/cells.tif!
 Using only what we have learned in this workshop, can you write something to calculate cell counts?

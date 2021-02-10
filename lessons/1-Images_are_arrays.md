@@ -309,21 +309,53 @@ Note that the function returns an ordered list of row indices and an ordered lis
 array([1, 2, 3, 4, 5, 6])
 ```
 
-`numpy.where` is a similarly useful function, except it allows you to return indices that satisfy more complicated conditions (i.e., evaluate to `True`). For example, if we want to return all of the indices of items in array `a` that are `> 3` and `< 6`, we could do this:
+You can also apply logical operations to arrays, and return a boolean array:
 
 ```python
->>> np.where((a > 3) & (a < 6))
-(array([1, 1]), array([0, 1]))
+>>> a
+array([[1, 2, 3],
+       [4, 5, 6],
+       [0, 0, 0]])
+>>> a > 3
+array([[False, False, False],
+       [ True,  True,  True],
+       [False, False, False]])
+>>> (a > 3) & (a < 6) # Note the parentheses
+array([[False, False, False],
+       [ True,  True, False],
+       [False, False, False]])
 ```
 
-You can combine indexing with `numpy.where()` and assignment to change certain elements of an array. If we want to set all items in array `a` that are `> 3` and `< 6` to 255, we would do this:
+You can in turn use boolean arrays as indices, to return values that satisfy certain conditions. For example, if we want to return all of the values of items in array `a` that are `> 3` and `< 6`, we could do this:
 
 ```python
->>> a[np.where((a > 3) & (a < 6))] = 255
+>>> a[(a > 3) & (a < 6)]
+array([4, 5])
+```
+
+What is generally more useful is to use this boolean indexing approach to change specific values in the array. For example, if we want to set all items in array `a` that are `> 3` and `< 6` to 255, we would do this:
+
+```python
+>>> a[(a > 3) & (a < 6)] = 255
 >>> a
 array([[  1,   2,   3],
        [255, 255,   6],
        [  0,   0,   0]])
+```
+
+Finally, sometimes you just want to return indices for values that satisfy a certain condition. In this case, use `numpy.where`:
+
+```python
+>>> np.where(a == 255)
+(array([1, 1]), array([0, 1]))
+```
+
+Pay close attention to the values returned by `np.where`. Two arrays were returned, an array of row coordinates and an array of column coordinates. So `np.where` is often used like this:
+
+```python
+>>> row, col = np.where(a == 255)
+>>> row[0], col[0]  # Returns the position of the first value equal to 255
+(1, 0)
 ```
 
 ## Exercises - Part 2
