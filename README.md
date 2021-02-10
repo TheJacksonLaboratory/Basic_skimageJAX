@@ -2,7 +2,9 @@
 
 This workshop covers the basics of image analysis using scikit-image (`skimage`), a popular image analysis toolkit written in Python. It is geared toward those with low-to-moderate programming experience, but beginners should be able to follow along with the provided tutorial code. This material will cover image file IO, basic processing such as rescaling and filtering, and basic image segmentation.
 
-Lesson material is found in the `lessons/` folder. Please review `0-Background_and_Setup.md` to set up your environment to follow the lessons.
+Lesson material source code is found in the `lessons/` folder. You can access the rendered pages here: https://thejacksonlaboratory.github.io/Basic_skimageJAX/
+
+Please review `0-Background_and_Setup.md` to set up your environment to follow the lessons.
 
 You might also find the following links useful:
 
