@@ -4,7 +4,7 @@ This workshop covers the basics of image analysis using scikit-image (`skimage`)
 
 Lesson material source code is found in the `lessons/` folder. You can access the rendered pages here: [https://thejacksonlaboratory.github.io/Basic_skimageJAX/](https://thejacksonlaboratory.github.io/Basic_skimageJAX/)
 
-[Workshop Overview](README.md)
+## Setup
 
 [Setup Instructions for the Workshop](lessons/0-Background_and_Setup.md#setting-up-for-the-class)
 
