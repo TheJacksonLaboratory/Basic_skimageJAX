@@ -114,11 +114,15 @@ You will need to use three software tools in addition to Python for this worksho
 
       Windows (Anaconda Prompt): `activate ImPyClass`
 
-5. Install Scikit-Image, Numpy, Jupyter, and NB_Conda:
+5. Install Scikit-Image, Numpy, Jupyter Lab, and NB_Conda:
 
     ```bash
     conda install scikit-image numpy nb_conda
     conda install -c conda-forge jupyterlab
     ```
 
-6. Launch Jupyter from the Anaconda launcher or command line.
+6. Launch Jupyter Lab from the Anaconda launcher or command line.
+
+```bash
+jupyter lab
+```
