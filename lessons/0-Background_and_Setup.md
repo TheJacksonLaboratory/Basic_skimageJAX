@@ -96,7 +96,7 @@ You will need to use three software tools in addition to Python for this worksho
 
     **Windows Users**: You will first need to install [git](https://git-scm.com/download/win). Then you can use Git Bash to use the command shown above
 
-    **As an alternative to using git**, you can also download the repository as a zip file from [Github](https://github.com/TheJacksonLaboratory/Basic_skimageJAX/archive/3.0.zip).
+    **As an alternative to using git**, you can also download the repository as a zip file from [Github](https://github.com/TheJacksonLaboratory/Basic_skimageJAX/archive/3.1.zip).
 
 2. Install [Anaconda](https://www.anaconda.com/download/) (or [Miniconda](https://conda.io/miniconda.html))
     * This gives you access to the `conda` Python package management system
