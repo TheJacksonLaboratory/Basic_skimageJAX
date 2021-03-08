@@ -96,7 +96,7 @@ You will need to use three software tools in addition to Python for this worksho
 
     **Windows Users**: You will first need to install [git](https://git-scm.com/download/win). Then you can use Git Bash to use the command shown above
 
-    **As an alternative to using git**, you can also download the repository as a zip file from [Github](https://github.com/TheJacksonLaboratory/PythonImagingBasic/archive/2.0.zip).
+    **As an alternative to using git**, you can also download the repository as a zip file from [Github](https://github.com/TheJacksonLaboratory/PythonImagingBasic/archive/3.0.zip).
 
 2. Install [Anaconda](https://www.anaconda.com/download/) (or [Miniconda](https://conda.io/miniconda.html))
     * This gives you access to the `conda` Python package management system
@@ -110,14 +110,15 @@ You will need to use three software tools in addition to Python for this worksho
   
 4. Switch to the ImPyClass virtual environment
 
-      macOS, Linux: `source activate ImPyClass`
+      macOS, Linux: `conda activate ImPyClass`
 
       Windows (Anaconda Prompt): `activate ImPyClass`
 
 5. Install Scikit-Image, Numpy, Jupyter, and NB_Conda:
 
     ```bash
-    conda install scikit-image numpy jupyter nb_conda
+    conda install scikit-image numpy nb_conda
+    conda install -c conda-forge jupyterlab
     ```
 
 6. Launch Jupyter from the Anaconda launcher or command line.
